@@ -3,11 +3,11 @@
 {-# SCRIPT_TYPE ACCOUNT #-}
 
 let actualHeight = 0 #current blockchain height
-let axai = base58'<assetId>' #axai asset id
+let asset1 = base58'<assetId>' #asset1 asset id
 let time = 2629800 #1 year
 
 match tx {
-  case t: TransferTransaction => if (t.assetId != axai) then true else sigVerify(t.bodyBytes, t.proofs[0], t.senderPublicKey) && height > (actualHeight + time) 
+  case t: TransferTransaction => if (t.assetId != asset1) then true else sigVerify(t.bodyBytes, t.proofs[0], t.senderPublicKey) && height > (actualHeight + time) 
   case x: SetScriptTransaction => height > (actualHeight + time)
   case _ => sigVerify(tx.bodyBytes, tx.proofs[0], tx.senderPublicKey)
 }
